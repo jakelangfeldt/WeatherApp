@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +19,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val apiKeysPropertiesFile = rootProject.file("api-keys.properties")
+        val apiKeysProperties = Properties()
+        apiKeysProperties.load(FileInputStream(apiKeysPropertiesFile))
+        buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", apiKeysProperties.getProperty("OPEN_WEATHER_MAP_API_KEY"))
     }
 
     buildTypes {
@@ -36,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

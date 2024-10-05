@@ -1,4 +1,4 @@
-package com.jakelangfeldt.weatherapp
+package com.jakelangfeldt.weatherapp.view
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
