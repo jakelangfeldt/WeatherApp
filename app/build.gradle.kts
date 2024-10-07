@@ -3,8 +3,10 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -18,12 +20,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         val apiKeysPropertiesFile = rootProject.file("api-keys.properties")
         val apiKeysProperties = Properties()
         apiKeysProperties.load(FileInputStream(apiKeysPropertiesFile))
-        buildConfigField("String", "OPEN_WEATHER_MAP_API_KEY", apiKeysProperties.getProperty("OPEN_WEATHER_MAP_API_KEY"))
+        buildConfigField(
+            "String",
+            "OPEN_WEATHER_MAP_API_KEY",
+            apiKeysProperties.getProperty("OPEN_WEATHER_MAP_API_KEY")
+        )
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -43,8 +49,11 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        compose = true
         buildConfig = true
+        compose = true
+    }
+    packaging {
+        resources.excludes += "DebugProbesKt.bin"
     }
 }
 
@@ -54,10 +63,15 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.runtime.livedata)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.hilt.android)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.bundles.coroutines)
+    kapt(libs.hilt.android.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
