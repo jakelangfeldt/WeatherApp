@@ -35,6 +35,10 @@ class ForecastsViewModel @Inject constructor(
         }
     }
 
+    fun updateSelectedForecast(forecast: Forecast?) {
+        _forecastsState.value = _forecastsState.value?.copy(selectedForecast = forecast)
+    }
+
     private suspend fun fetchForecasts(zipCode: Int) {
         val forecastsResult =
             openWeatherMapRepository.fetchForecasts(zipCode, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
@@ -43,7 +47,6 @@ class ForecastsViewModel @Inject constructor(
             _forecastsState.value = forecastsResult.data.toForecastsState()
         } else {
             _forecastsState.value = ForecastsState()
-            // TODO
         }
     }
 
