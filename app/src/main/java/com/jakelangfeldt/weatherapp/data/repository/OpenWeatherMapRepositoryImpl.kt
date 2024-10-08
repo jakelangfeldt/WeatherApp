@@ -74,15 +74,18 @@ class OpenWeatherMapRepositoryImpl @Inject constructor(
 
     private fun ForecastsResponse.toForecastsModel(name: String?) = ForecastsModel(
         location = name,
-        forecasts = this.daily?.map { it.toForecast() }.orEmpty(),
+        timezone = timezone,
+        forecasts = daily?.map { it.toForecast() }.orEmpty(),
     )
 
     private fun ForecastResponse.toForecast() = Forecast(
-        temperature = this.temp?.toTemperature()
+        time = dt,
+        summary = summary,
+        temperature = temp?.toTemperature()
     )
 
     private fun TemperatureResponse.toTemperature() = Temperature(
-        min = this.min,
-        max = this.max,
+        min = min,
+        max = max,
     )
 }

@@ -7,6 +7,10 @@ data class ForecastsState(
 )
 
 data class Forecast(
+    val location: String? = null,
+    val date: String? = null,
+    val dayOfWeek: String? = null,
+    val summary: String? = null,
     val temperature: Temperature? = null,
 )
 
