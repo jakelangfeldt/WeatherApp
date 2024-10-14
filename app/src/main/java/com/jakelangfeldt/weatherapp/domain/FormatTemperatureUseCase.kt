@@ -9,7 +9,7 @@ class FormatTemperatureUseCase @Inject constructor() {
 
     operator fun invoke(temperature: Double?) =
         if (temperature != null) {
-            temperature.roundToInt().toString() + DEGREES_SYMBOL
+            "${temperature.roundToInt()}${DEGREES_SYMBOL}"
         } else {
             ""
         }

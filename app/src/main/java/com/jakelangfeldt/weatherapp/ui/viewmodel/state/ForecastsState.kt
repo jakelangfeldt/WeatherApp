@@ -9,12 +9,20 @@ data class ForecastsState(
 data class Forecast(
     val location: String? = null,
     val date: String? = null,
-    val dayOfWeek: String? = null,
+    val sunrise: String? = null,
+    val sunset: String? = null,
     val summary: String? = null,
+    val wind: String? = null,
     val temperature: Temperature? = null,
+    val weather: Weather? = null,
+    val uvi: String? = null,
 )
 
 data class Temperature(
     val min: String? = null,
     val max: String? = null,
+)
+
+data class Weather(
+    val iconUrl: String? = null,
 )

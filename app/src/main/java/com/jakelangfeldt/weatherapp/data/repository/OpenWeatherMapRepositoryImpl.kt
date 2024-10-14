@@ -8,12 +8,14 @@ import com.jakelangfeldt.weatherapp.data.datasource.remote.OpenWeatherMapService
 import com.jakelangfeldt.weatherapp.data.repository.model.Forecast
 import com.jakelangfeldt.weatherapp.data.repository.model.ForecastsModel
 import com.jakelangfeldt.weatherapp.data.repository.model.Temperature
+import com.jakelangfeldt.weatherapp.data.repository.model.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import com.jakelangfeldt.weatherapp.data.datasource.remote.response.Forecast as ForecastResponse
 import com.jakelangfeldt.weatherapp.data.datasource.remote.response.Forecasts as ForecastsResponse
 import com.jakelangfeldt.weatherapp.data.datasource.remote.response.Temperature as TemperatureResponse
+import com.jakelangfeldt.weatherapp.data.datasource.remote.response.Weather as WeatherResponse
 
 private const val COORDINATES_UNAVAILABLE = "Coordinates is null"
 private const val FORECASTS_UNAVAILABLE = "Forecasts is null"
@@ -80,12 +82,22 @@ class OpenWeatherMapRepositoryImpl @Inject constructor(
 
     private fun ForecastResponse.toForecast() = Forecast(
         time = dt,
+        sunrise = sunrise,
+        sunset = sunset,
         summary = summary,
-        temperature = temp?.toTemperature()
+        temperature = temp?.toTemperature(),
+        windSpeed = windSpeed,
+        windDegrees = windDegrees,
+        weatherList = weatherList?.map { it.toWeather() }.orEmpty(),
+        uvi = uvi,
     )
 
     private fun TemperatureResponse.toTemperature() = Temperature(
         min = min,
         max = max,
+    )
+
+    private fun WeatherResponse.toWeather() = Weather(
+        icon = icon,
     )
 }

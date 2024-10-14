@@ -10,7 +10,7 @@ data class ForecastsModel(
     @SerializedName("timezone")
     val timezone: String? = null,
 
-    @SerializedName("forcasts")
+    @SerializedName("forecasts")
     val forecasts: List<Forecast>? = null,
 )
 
@@ -18,11 +18,29 @@ data class Forecast(
     @SerializedName("time")
     val time: Long? = null,
 
+    @SerializedName("sunrise")
+    val sunrise: Long? = null,
+
+    @SerializedName("sunset")
+    val sunset: Long? = null,
+
     @SerializedName("summary")
     val summary: String? = null,
 
     @SerializedName("temperature")
     val temperature: Temperature? = null,
+
+    @SerializedName("wind_speed")
+    val windSpeed: Double? = null,
+
+    @SerializedName("wind_degrees")
+    val windDegrees: Int? = null,
+
+    @SerializedName("weather_list")
+    val weatherList: List<Weather>? = null,
+
+    @SerializedName("uvi")
+    val uvi: Double? = null,
 )
 
 data class Temperature(
@@ -31,4 +49,9 @@ data class Temperature(
 
     @SerializedName("max")
     val max: Double? = null,
+)
+
+data class Weather(
+    @SerializedName("icon")
+    val icon: String? = null,
 )
